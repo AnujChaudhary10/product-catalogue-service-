@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import com.service.product.catalogue.cache.ProductCatalogueCache;
@@ -85,8 +86,11 @@ public class ProductCatalogueServiceImpl implements ProductCatalogueService {
 	@Override
 	public String addProduct(List<CreateProductDTO> products)
 			throws ProductDaoException {
-		String statusMessage = dao.addProduct(products);
-		createProductInPricingService(products);
+		 String statusMessage = createProductInPricingService(products);
+		 if(ServiceConstant.CREATED.equalsIgnoreCase(statusMessage)){
+		     statusMessage = dao.addProduct(products);
+		 }
+		
 		if (ServiceConstant.CREATED.equalsIgnoreCase(statusMessage)) {
 			for (ProductDTO product : products) {
 				catalogue.put(product.getProductId(), product);
@@ -103,10 +107,14 @@ public class ProductCatalogueServiceImpl implements ProductCatalogueService {
 		return statusMessage;
 	}
 
-	private String createProductInPricingService(List<CreateProductDTO> priceDTO) {
+	private String createProductInPricingService(List<CreateProductDTO> priceDTO) throws ProductDaoException {
 		HttpEntity<String> httpEntity = createEntityForService(convertObjectToJSON(priceDTO), MediaType.APPLICATION_JSON);
+		try{
 		return restTemplet.postForObject(env.getProperty("pricing.service.url"), httpEntity,
 				String.class);
+		}catch(ResourceAccessException ex){
+			throw new ProductDaoException(ex.getMessage());
+		}
 	}
 
 	private HttpEntity<String> createEntityForService(String body,
