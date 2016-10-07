@@ -1,0 +1,17 @@
+com/service/product/catalogue/service/ProductCatalogueServiceImpl.class
+com/service/product/catalogue/config/SpringConfig.class
+com/service/product/catalogue/exception/ProductDaoException.class
+com/service/product/catalogue/cache/ProductCatalogueCache.class
+com/service/product/catalogue/dao/ProductDao.class
+com/service/product/catalogue/cache/loader/ProductCacheLoader.class
+com/service/product/catalogue/dto/CreateProductDTO.class
+com/service/product/catalogue/dto/ProductPriceDTO.class
+com/service/product/catalogue/dao/ProductDaoImpl$1.class
+com/service/product/catalogue/configDB/HsqlDataSource.class
+com/service/product/catalogue/cache/ProductCatalogue.class
+com/service/product/catalogue/dao/ProductDaoImpl$ProductExtractor.class
+com/service/product/catalogue/common/ServiceConstant.class
+com/service/product/catalogue/dto/ProductDTO.class
+com/service/product/catalogue/controller/ProductCatalogueController.class
+com/service/product/catalogue/service/ProductCatalogueService.class
+com/service/product/catalogue/dao/ProductDaoImpl.class

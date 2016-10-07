@@ -1,0 +1,5 @@
+127.0.0.1 - - [07/Oct/2016:17:34:45 +0530] "GET /ProductCatalogueService/products/search HTTP/1.1" 200 146 http-bio-8080-exec-1 77
+127.0.0.1 - - [07/Oct/2016:17:34:59 +0530] "GET /ProductCatalogueService/products/search HTTP/1.1" 200 146 http-bio-8080-exec-4 2
+127.0.0.1 - - [07/Oct/2016:17:34:59 +0530] "POST /ProductCatalogueService/products HTTP/1.1" 201 7 http-bio-8080-exec-3 218
+127.0.0.1 - - [07/Oct/2016:17:35:12 +0530] "GET /ProductCatalogueService/products/search HTTP/1.1" 200 316 http-bio-8080-exec-7 3
+127.0.0.1 - - [07/Oct/2016:17:35:34 +0530] "GET /ProductCatalogueService/products/search HTTP/1.1" 200 316 http-bio-8080-exec-10 2
