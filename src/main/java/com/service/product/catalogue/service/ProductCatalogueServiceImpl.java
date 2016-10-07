@@ -86,15 +86,13 @@ public class ProductCatalogueServiceImpl implements ProductCatalogueService {
 	@Override
 	public String addProduct(List<CreateProductDTO> products)
 			throws ProductDaoException {
-		 String statusMessage = createProductInPricingService(products);
-		 if(ServiceConstant.CREATED.equalsIgnoreCase(statusMessage)){
-		     statusMessage = dao.addProduct(products);
-		 }
-		
+		String statusMessage = dao.addProduct(products);
 		if (ServiceConstant.CREATED.equalsIgnoreCase(statusMessage)) {
+			
 			for (ProductDTO product : products) {
 				catalogue.put(product.getProductId(), product);
 			}
+			createProductInPricingService(products);
 		}
 		return statusMessage;
 	}
@@ -107,10 +105,10 @@ public class ProductCatalogueServiceImpl implements ProductCatalogueService {
 		return statusMessage;
 	}
 
-	private String createProductInPricingService(List<CreateProductDTO> priceDTO) throws ProductDaoException {
+	private void createProductInPricingService(List<CreateProductDTO> priceDTO) throws ProductDaoException {
 		HttpEntity<String> httpEntity = createEntityForService(convertObjectToJSON(priceDTO), MediaType.APPLICATION_JSON);
 		try{
-		return restTemplet.postForObject(env.getProperty("pricing.service.url"), httpEntity,
+		 restTemplet.postForObject(env.getProperty("pricing.service.url"), httpEntity,
 				String.class);
 		}catch(ResourceAccessException ex){
 			throw new ProductDaoException(ex.getMessage());
